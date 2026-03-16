@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Régie DÉBRIS</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+:root{--dark:#0d0d1a;--dark2:#1a1a2e;--gold:#c9a84c;--gold2:#e8d08a;--text:#f0f0f0;--muted:#777;--red:#ef5350;--green:#66bb6a}
+body{background:var(--dark);color:var(--text);font-family:Arial,sans-serif;min-height:100vh}
+.header{background:var(--dark2);padding:12px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:2px solid var(--gold);position:sticky;top:0;z-index:100}
+.ht{font-size:18px;font-weight:bold;color:var(--gold);letter-spacing:2px}
+.hs{font-size:10px;color:var(--muted)}
+.hr{text-align:right}
+.hl{font-size:13px;color:var(--gold);font-weight:bold}
+.htm{font-size:10px;color:var(--muted)}
+.pbar{height:3px;background:#222;position:sticky;top:57px;z-index:99}
+.pf{height:100%;background:linear-gradient(to right,var(--gold),var(--gold2));transition:width 0.5s}
+.wrap{padding:14px}
+.card{border-radius:16px;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,0.6);border:1px solid rgba(255,255,255,0.06);animation:fi 0.3s ease;margin-bottom:14px}
+@keyframes fi{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.ch{padding:14px 18px;display:flex;align-items:center;gap:12px}
+.cn{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:bold;flex-shrink:0;border:2px solid rgba(255,255,255,0.15);color:white}
+.ci{flex:1}
+.cname{font-size:16px;font-weight:bold;color:white}
+.cst{font-size:10px;color:rgba(255,255,255,0.5);letter-spacing:1px;margin-top:2px}
+.ctm{font-size:11px;color:var(--muted);background:rgba(255,255,255,0.07);padding:3px 9px;border-radius:8px}
+.cb{padding:0 18px 18px}
+.sl{font-size:10px;letter-spacing:2px;color:rgba(255,255,255,0.4);text-transform:uppercase;margin:14px 0 7px}
+.lb{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:20px;font-size:13px;font-weight:bold;color:white}
+.ld{width:13px;height:13px;border-radius:50%}
+.mp{background:rgba(0,0,0,0.3);border-radius:13px;padding:13px;border:1px solid rgba(255,255,255,0.07)}
+.mt{display:flex;align-items:center;gap:11px;margin-bottom:11px}
+.mi{font-size:24px;flex-shrink:0}
+.mif{flex:1}
+.mtl{font-size:14px;font-weight:bold;color:white}
+.mde{font-size:11px;color:rgba(255,255,255,0.4);margin-top:3px;font-style:italic}
+.mbs{display:flex;gap:7px;margin-bottom:9px}
+.mb{flex:1;padding:12px;border:none;border-radius:10px;font-size:14px;font-weight:bold;cursor:pointer;transition:transform 0.1s;display:flex;align-items:center;justify-content:center;gap:6px}
+.mb:active{transform:scale(0.95)}
+.mb.play{background:linear-gradient(135deg,#1db954,#1ed760);color:white}
+.mb.stop{background:rgba(239,83,80,0.15);color:var(--red);border:1px solid var(--red);display:none}
+.vr{display:flex;align-items:center;gap:9px}
+.vl{font-size:11px;color:var(--muted);white-space:nowrap}
+input[type=range]{flex:1;height:4px;-webkit-appearance:none;background:rgba(255,255,255,0.15);border-radius:2px;outline:none}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--gold);cursor:pointer}
+.vv{font-size:11px;color:var(--muted);min-width:32px;text-align:right}
+.eq{display:none;align-items:center;gap:5px;font-size:11px;color:#1db954;margin-top:8px}
+.eq.on{display:flex}
+.eqb{display:flex;gap:2px;align-items:flex-end;height:13px}
+.eb{width:3px;background:#1db954;border-radius:1px;animation:eq 0.7s ease infinite alternate}
+.eb:nth-child(2){animation-delay:.2s}
+.eb:nth-child(3){animation-delay:.4s}
+@keyframes eq{from{height:3px}to{height:13px}}
+.di{background:rgba(255,255,255,0.04);border-left:3px solid var(--gold);border-radius:0 8px 8px 0;padding:10px 13px;font-size:13px;font-style:italic;color:rgba(255,255,255,0.65);line-height:1.6}
+.pt{display:flex;flex-wrap:wrap;gap:5px}
+.ptg{padding:4px 10px;border-radius:11px;font-size:11px;font-weight:bold;background:rgba(255,255,255,0.09);color:rgba(255,255,255,0.75)}
+.nx{background:rgba(255,255,255,0.04);border-radius:10px;padding:10px 13px;font-size:12px;color:var(--muted)}
+.ng{color:var(--gold)}
+.fn{background:rgba(102,187,106,0.1);border-radius:10px;padding:16px;text-align:center}
+.navbar{position:fixed;bottom:0;left:0;right:0;background:var(--dark2);border-top:2px solid var(--gold);padding:11px 14px;display:flex;gap:9px;z-index:100}
+.nb{padding:15px;border:none;border-radius:12px;font-size:14px;font-weight:bold;cursor:pointer;transition:transform 0.1s}
+.nb:active{transform:scale(0.95)}
+.np{background:rgba(255,255,255,0.07);color:var(--muted);flex:0.55;font-size:20px}
+.nn{background:linear-gradient(135deg,var(--gold),var(--gold2));color:var(--dark);flex:2;font-size:14px}
+.nk{background:var(--red);color:white;flex:0.55;font-size:11px}
+.nc2{flex:2;display:flex;flex-direction:column;gap:4px}
+.nco{text-align:center;font-size:11px;color:var(--muted)}
+.urg{position:fixed;inset:0;background:rgba(0,0,0,0.92);z-index:300;display:none;align-items:center;justify-content:center;padding:22px}
+.urg.on{display:flex}
+.uc{background:#1a0000;border:2px solid var(--red);border-radius:16px;padding:24px;max-width:340px;width:100%;text-align:center}
+.ut{font-size:20px;font-weight:bold;color:var(--red);margin-bottom:14px}
+.ux{font-size:14px;color:#ffcccc;line-height:1.85;margin-bottom:18px}
+.ucl{background:var(--red);color:white;border:none;padding:12px;border-radius:10px;font-size:15px;font-weight:bold;cursor:pointer;width:100%}
+.lf{position:fixed;inset:0;pointer-events:none;opacity:0;transition:opacity 0.25s;z-index:200}
+.lf.on{opacity:0.14}
+.sp{height:105px}
+.err{background:rgba(255,152,0,0.15);border:1px solid orange;border-radius:8px;padding:10px;font-size:12px;color:orange;margin-top:8px;display:none}
+</style>
+</head>
+<body>
+<div class="lf" id="lf"></div>
+<div class="urg" id="urg">
+  <div class="uc">
+    <div class="ut">⚠️ PAUSE D'URGENCE</div>
+    <div class="ux">Couper le son immédiatement.<br><br>Lumières → blanc général.<br><br>Dire calmement :<br><em>"Courte pause technique."</em><br><br>Reprendre depuis cette scène.</div>
+    <button class="ucl" onclick="cu()">REPRENDRE</button>
+  </div>
+</div>
+<div class="header">
+  <div><div class="ht">DÉBRIS</div><div class="hs">RÉGIE SON & LUMIÈRE</div></div>
+  <div class="hr"><div class="hl" id="sl">INTRO</div><div class="htm" id="tm">⏱ Prêt</div></div>
+</div>
+<div class="pbar"><div class="pf" id="pf" style="width:0%"></div></div>
+<div class="wrap" id="main"></div>
+<div class="sp"></div>
+<div class="navbar">
+  <button class="nb np" onclick="prev()">◀</button>
+  <div class="nc2">
+    <div class="nco" id="nc">0 / 11</div>
+    <button class="nb nn" id="nn" onclick="next()">▶ SCÈNE SUIVANTE</button>
+  </div>
+  <button class="nb nk" onclick="su()">🚨<br>STOP</button>
+</div>
+<script>
+// Les fichiers MP3 doivent être dans le MÊME dossier que ce fichier HTML
+const FILES={
+  sc00:"sc00_Aurora_Runaway.mp3",
+  sc01:"sc01_Cornfield_Chase.mp3",
+  sc02:"sc02_Near_Light.mp3",
+  sc03:"sc03_Nature_of_Daylight.mp3",
+  sc04:"sc04_Giorgio_Moroder.mp3",
+  sc05:"sc05_Space_Oddity.mp3",
+  sc06:"sc06_Blade_Runner_Blues.mp3",
+  sc07:"sc07_No_Time_for_Caution.mp3",
+  sc08:"sc08_Says.mp3",
+  sc09:"sc09_M83_Outro.mp3",
+  sc10:"sc10_Einaudi_Experience.mp3"
+};
+
+const SC=[
+  {num:"INTRO",name:"Introduction — Narrateur",bg:"#1a1040",nbg:"#4a148c",
+   lum:{label:"SPOT VIOLET — Narrateur seul",color:"#9c27b0",dot:"#ce93d8",lbg:"rgba(156,39,176,0.18)"},
+   mus:{title:"Aurora — Runaway",desc:"Très douce en fond — volume 20%",vol:0.20,key:"sc00"},
+   dida:"Lumière violette très tamisée. Un seul spot sur le narrateur. Musique AVANT qu'il entre.",
+   persos:["NARRATEUR (YACINE)"],timing:"~3 min"},
+  {num:"1",name:"Le Silence qui parle",bg:"#0d1a3a",nbg:"#1565c0",
+   lum:{label:"BLEU PROFOND — Lent, débris tournent",color:"#1565c0",dot:"#4fc3f7",lbg:"rgba(21,101,192,0.18)"},
+   mus:{title:"Hans Zimmer — Cornfield Chase",desc:"Piano minimaliste — volume 35%",vol:0.35,key:"sc01"},
+   dida:"Lumière bleue froide. Les débris tournent lentement.",
+   persos:["VOIX OFF 1","VOIX OFF 2","VOIX OFF 3","DÉBRIS 1","DÉBRIS 2","DÉBRIS 3","DÉBRIS 4"],timing:"~4 min"},
+  {num:"2",name:"Les planètes entrent",bg:"#0d2a1a",nbg:"#1b5e20",
+   lum:{label:"BLANC DOUX — Planètes",color:"#2e7d32",dot:"#a5d6a7",lbg:"rgba(46,125,50,0.18)"},
+   mus:{title:"Ólafur Arnalds — Near Light",desc:"Ambient mélancolique — volume 30%",vol:0.30,key:"sc02"},
+   dida:"Transition douce du bleu vers le blanc. Lumière mélancolique.",
+   persos:["TERRE","LUNE","MARS","VOIX OFF 4"],timing:"~3 min"},
+  {num:"3",name:"Les débris racontent",bg:"#1a1500",nbg:"#e65100",
+   lum:{label:"SPOT INDIVIDUEL — Un par débris",color:"#e65100",dot:"#ffcc02",lbg:"rgba(230,81,0,0.18)"},
+   mus:{title:"Max Richter — On the Nature of Daylight",desc:"Cordes émouvantes — volume 25%",vol:0.25,key:"sc03"},
+   dida:"Un spot éclaire le débris qui parle. Les autres dans l'ombre.",
+   persos:["DÉBRIS 1","DÉBRIS 2","DÉBRIS 3","DÉBRIS 4"],timing:"~5 min"},
+  {num:"4",name:"Le satellite arrive",bg:"#1a0a2a",nbg:"#6a1b9a",
+   lum:{label:"VIOLET VIF AGITÉ — Satellite chaotique",color:"#6a1b9a",dot:"#ce93d8",lbg:"rgba(106,27,154,0.18)"},
+   mus:{title:"Daft Punk — Giorgio by Moroder",desc:"Électronique dynamique — volume 50%",vol:0.50,key:"sc04"},
+   dida:"Lumière vive et agitée. Contraste fort avec la scène précédente.",
+   persos:["SATELLITE","DÉBRIS 1","DÉBRIS 2","DÉBRIS 4"],timing:"~3 min"},
+  {num:"5",name:"L'astronaute arrive",bg:"#001a2a",nbg:"#01579b",
+   lum:{label:"BLANC PUR — Spot net, fort",color:"#01579b",dot:"#ffffff",lbg:"rgba(1,87,155,0.18)"},
+   mus:{title:"David Bowie — Space Oddity",desc:"Folk spatiale — volume 40%",vol:0.40,key:"sc05"},
+   dida:"Lumière blanche pure. Gravité zéro. Contraste total.",
+   persos:["ASTRONAUTE","DÉBRIS 2"],timing:"~3 min"},
+  {num:"6",name:"La base au sol",bg:"#1a1000",nbg:"#bf360c",
+   lum:{label:"ORANGE TAMISÉ — Tension, nuit",color:"#bf360c",dot:"#ffab91",lbg:"rgba(191,54,12,0.18)"},
+   mus:{title:"Vangelis — Blade Runner Blues",desc:"Très discret en fond — volume 20%",vol:0.20,key:"sc06"},
+   dida:"Lumière orange basse. Radio grésillant. Les voix dominent.",
+   persos:["TECHNICIEN 1","TECHNICIEN 2","ASTRONAUTE","SATELLITE"],timing:"~3 min"},
+  {num:"7 ⚠️",name:"LE CHAOS",bg:"#1a0000",nbg:"#b71c1c",
+   lum:{label:"⚠️ ROUGE VIF + FLASHS RAPIDES",color:"#b71c1c",dot:"#ef5350",lbg:"rgba(183,28,28,0.28)"},
+   mus:{title:"Hans Zimmer — No Time for Caution",desc:"⚠️ FORT 70-80% → SILENCE TOTAL sur STOP",vol:0.75,key:"sc07"},
+   dida:"⚠️ Au cri STOP → couper SON + LUMIÈRE en même temps. 4 secondes de silence et noir total.",
+   persos:["VOIX OFF 1-4","DÉBRIS 1","DÉBRIS 3","ASTRONAUTE"],timing:"~4 min"},
+  {num:"8",name:"L'apaisement",bg:"#001a10",nbg:"#1b5e20",
+   lum:{label:"BLANC DOUX — Entre très progressivement",color:"#1b5e20",dot:"#a5d6a7",lbg:"rgba(27,94,32,0.18)"},
+   mus:{title:"Nils Frahm — Says",desc:"Entre très doucement après le silence — 30%",vol:0.30,key:"sc08"},
+   dida:"Après le silence — lumière et son entrent très lentement. Ne pas allumer d'un coup.",
+   persos:["ASTRONAUTE","DÉBRIS 1"],timing:"~2 min"},
+  {num:"9",name:"L'avenir",bg:"#0d1a2a",nbg:"#1565c0",
+   lum:{label:"BLEU CLAIR — Plus lumineux, espoir",color:"#0d47a1",dot:"#90caf9",lbg:"rgba(13,71,161,0.18)"},
+   mus:{title:"M83 — Outro",desc:"Monte progressivement — 45%",vol:0.45,key:"sc09"},
+   dida:"Bleu plus lumineux qu'au début. Sentiment d'élan vers l'avenir.",
+   persos:["VOIX OFF 1-4","TECHNICIEN 1","SATELLITE"],timing:"~2 min"},
+  {num:"10 ⭐",name:"FINAL COLLECTIF",bg:"#1a1500",nbg:"#c9a84c",
+   lum:{label:"⭐ BLANC BRILLANT — Plein feu maximum",color:"#c9a84c",dot:"#ffffff",lbg:"rgba(201,168,76,0.22)"},
+   mus:{title:"Ludovico Einaudi — Experience",desc:"⭐ Fort 60-65% — garder pendant les applaudissements",vol:0.62,key:"sc10"},
+   dida:"BLANC MAXIMUM. Garder la musique pendant TOUS les applaudissements.",
+   persos:["TOUS"],timing:"~2 min"},
+];
+
+let cur=0,aud=null,t0=null,tiv=null;
+
+function play(key,vol){
+  if(aud){aud.pause();aud.currentTime=0;}
+  aud=new Audio(FILES[key]);
+  aud.volume=vol;
+  aud.loop=true;
+  aud.play().then(()=>{
+    const eq=document.getElementById('eq');
+    const bp=document.getElementById('bplay');
+    const bs=document.getElementById('bstop');
+    const er=document.getElementById('errmsg');
+    if(eq)eq.classList.add('on');
+    if(bp)bp.style.display='none';
+    if(bs)bs.style.display='flex';
+    if(er)er.style.display='none';
+  }).catch(e=>{
+    const er=document.getElementById('errmsg');
+    if(er){er.style.display='block';er.textContent='⚠ Fichier MP3 introuvable. Vérifie que tous les MP3 sont dans le même dossier que ce fichier HTML.';}
+  });
+}
+
+function stopAud(){
+  if(aud){aud.pause();aud.currentTime=0;aud=null;}
+  const eq=document.getElementById('eq');
+  const bp=document.getElementById('bplay');
+  const bs=document.getElementById('bstop');
+  if(eq)eq.classList.remove('on');
+  if(bp)bp.style.display='flex';
+  if(bs)bs.style.display='none';
+}
+
+function setVol(v){
+  if(aud)aud.volume=parseFloat(v);
+  const vv=document.getElementById('vv');
+  if(vv)vv.textContent=Math.round(v*100)+'%';
+}
+
+function render(){
+  const s=SC[cur];
+  document.getElementById('pf').style.width=(cur/(SC.length-1)*100)+'%';
+  document.getElementById('sl').textContent=cur===0?'INTRO':'SCÈNE '+s.num;
+  document.getElementById('nc').textContent=cur+' / '+(SC.length-1);
+  const isL=cur===SC.length-1;
+  const nb=document.getElementById('nn');
+  nb.textContent=isL?'✓ FIN':'▶ SCÈNE SUIVANTE';
+  nb.style.background=isL?'linear-gradient(135deg,#66bb6a,#43a047)':'linear-gradient(135deg,var(--gold),var(--gold2))';
+  const lf=document.getElementById('lf');
+  lf.style.background=s.lum.color;lf.classList.add('on');setTimeout(()=>lf.classList.remove('on'),500);
+  const nx=SC[cur+1];
+  const vp=Math.round(s.mus.vol*100);
+  document.getElementById('main').innerHTML=`
+  <div class="card" style="background:linear-gradient(160deg,${s.bg},#0d0d1a)">
+    <div class="ch" style="background:${s.lum.lbg}">
+      <div class="cn" style="background:${s.nbg}">${s.num}</div>
+      <div class="ci"><div class="cname">${s.name}</div><div class="cst">● EN COURS</div></div>
+      <div class="ctm">⏱ ${s.timing}</div>
+    </div>
+    <div class="cb">
+      <div class="sl">💡 LUMIÈRE</div>
+      <div class="lb" style="background:${s.lum.lbg}">
+        <div class="ld" style="background:${s.lum.dot};box-shadow:0 0 7px ${s.lum.dot}"></div>
+        ${s.lum.label}
+      </div>
+      <div class="sl">🎵 MUSIQUE</div>
+      <div class="mp">
+        <div class="mt">
+          <div class="mi">🎵</div>
+          <div class="mif">
+            <div class="mtl">${s.mus.title}</div>
+            <div class="mde">${s.mus.desc}</div>
+          </div>
+        </div>
+        <div class="mbs">
+          <button class="mb play" id="bplay" onclick="play('${s.mus.key}',${s.mus.vol})">▶ LANCER</button>
+          <button class="mb stop" id="bstop" onclick="stopAud()">■ STOP</button>
+        </div>
+        <div class="vr">
+          <span class="vl">🔊</span>
+          <input type="range" min="0" max="1" step="0.05" value="${s.mus.vol}" oninput="setVol(this.value)">
+          <span class="vv" id="vv">${vp}%</span>
+        </div>
+        <div class="eq" id="eq">
+          <div class="eqb"><div class="eb"></div><div class="eb"></div><div class="eb"></div></div>
+          <span>Lecture en cours</span>
+        </div>
+        <div class="err" id="errmsg"></div>
+      </div>
+      <div class="sl">📋 DIDASCALIE</div>
+      <div class="di">${s.dida}</div>
+      <div class="sl">🎭 PERSONNAGES</div>
+      <div class="pt">${s.persos.map(p=>`<span class="ptg">${p}</span>`).join('')}</div>
+      ${nx?`
+      <div class="sl">⏭ SUIVANT</div>
+      <div class="nx">
+        <span class="ng">Sc. ${nx.num}</span> — ${nx.name}<br>
+        <span style="font-size:11px">💡 ${nx.lum.label}</span><br>
+        <span style="font-size:11px">🎵 ${nx.mus.title}</span>
+      </div>`:`
+      <div class="fn">
+        <div style="font-size:22px;margin-bottom:6px">🎉</div>
+        <div style="font-weight:bold;color:var(--green);font-size:15px">FIN DE LA REPRÉSENTATION</div>
+        <div style="color:var(--muted);font-size:12px;margin-top:5px">Garder la musique jusqu'à la fin des applaudissements</div>
+      </div>`}
+    </div>
+  </div>`;
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function next(){if(cur<SC.length-1){stopAud();cur++;if(!t0){t0=Date.now();tiv=setInterval(tk,1000);}render();if(navigator.vibrate)navigator.vibrate(50);}}
+function prev(){if(cur>0){stopAud();cur--;render();if(navigator.vibrate)navigator.vibrate(30);}}
+function tk(){if(!t0)return;const e=Math.floor((Date.now()-t0)/1000);document.getElementById('tm').textContent='⏱ '+Math.floor(e/60)+'m'+String(e%60).padStart(2,'0')+'s';}
+function su(){document.getElementById('urg').classList.add('on');if(navigator.vibrate)navigator.vibrate([100,50,100]);}
+function cu(){document.getElementById('urg').classList.remove('on');}
+let tx=0;
+document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;});
+document.addEventListener('touchend',e=>{const d=tx-e.changedTouches[0].clientX;if(Math.abs(d)>60)d>0?next():prev();});
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key===' ')next();if(e.key==='ArrowLeft')prev();if(e.key==='Escape')su();});
+render();
+</script>
+</body>
+</html>
